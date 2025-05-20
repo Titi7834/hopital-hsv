@@ -1,13 +1,16 @@
 import React from "react";
 import NavBar from "../NavBar";
-
+import AppointmentForm from "../components/AppointmentForm";
 
 const BookPage = () => {
     return (
-        <div>
+        <div className="book-page">
             <NavBar />
-            <h2>Réserver</h2>
-            <p>Réservez votre rendez-vous ici.</p>
+            <div className="container">
+                <h2>Réserver un rendez-vous</h2>
+                <p>Utilisez le formulaire ci-dessous pour prendre rendez-vous avec l'un de nos médecins.</p>
+                <AppointmentForm />
+            </div>
         </div>
     );
 }
