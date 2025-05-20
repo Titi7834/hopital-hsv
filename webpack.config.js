@@ -29,12 +29,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-  ],
-  devServer: {
+  ],  devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
     },
     hot: true,
     open: true,
+    port: 3000,
+    proxy: [{
+      context: ['/api'],
+      target: 'http://localhost:3001'
+    }],
+    historyApiFallback: true
   },
 };

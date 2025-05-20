@@ -5,15 +5,20 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "server": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm start\""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
+  "license": "ISC",  "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^6.30.0"
+    "react-router-dom": "^6.30.0",
+    "express": "^4.18.3",
+    "mysql2": "^3.9.2",
+    "body-parser": "^1.20.2",
+    "concurrently": "^8.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
