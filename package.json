@@ -17,6 +17,7 @@
     "concurrently": "^8.2.2",
     "crypto": "^1.0.1",
     "express": "^4.21.2",
+    "lucide-react": "^0.511.0",
     "mysql2": "^3.14.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
