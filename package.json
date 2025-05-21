@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "@tailwindcss/vite": "^4.1.7",
     "body-parser": "^1.20.2",
     "concurrently": "^8.2.2",
@@ -23,6 +24,17 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^6.30.0",
     "tailwindcss": "^4.1.7"
+=======
+    "body-parser": "^1.20.3",
+    "concurrently": "^8.2.2",
+    "crypto": "^1.0.1",
+    "express": "^4.21.2",
+    "lucide-react": "^0.511.0",
+    "mysql2": "^3.14.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^6.30.0"
+>>>>>>> f098293c3d2b5e2846605695e57df7758addf8c2
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",

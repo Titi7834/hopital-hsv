@@ -11,6 +11,29 @@ export default function HomePage() {
 
   return (
     <div className="container">
+<<<<<<< HEAD
+=======
+      {/* Header */}
+      <header className="header">
+        <div className="headerContent">
+          <div className="infoItem">
+            <Phone size={16} />
+            <span>Urgences: 01 23 45 67 89</span>
+          </div>
+          <div className="flexStart">
+            <div className="infoItem">
+              <Clock size={16} />
+              <span>7j/7, 24h/24</span>
+            </div>
+            <div className="infoItem">
+              <MapPin size={16} />
+              <span>3 Avenue de la Santé, Paris</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+>>>>>>> f098293c3d2b5e2846605695e57df7758addf8c2
       {/* Navigation */}
       <nav className="nav">
         <div className="navContent">
@@ -100,6 +123,12 @@ export default function HomePage() {
               <div>{service.icon}</div>
               <h3 className="serviceTitle">{service.title}</h3>
               <p className="serviceDescription">{service.desc}</p>
+<<<<<<< HEAD
+=======
+              <a href="#" className="serviceLink">
+                En savoir plus <ChevronRight size={16} style={{ marginLeft: 4 }} />
+              </a>
+>>>>>>> f098293c3d2b5e2846605695e57df7758addf8c2
             </div>
           ))}
         </div>
