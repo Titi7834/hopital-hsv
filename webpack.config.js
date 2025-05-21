@@ -20,13 +20,10 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
-<<<<<<< HEAD
-=======
       {
         test: /\.(png|jpe?g|gif|svg|ico)$/i,
         type: 'asset/resource',
       },
->>>>>>> f098293c3d2b5e2846605695e57df7758addf8c2
     ],
   },
   resolve: {
@@ -35,10 +32,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-<<<<<<< HEAD
-=======
       favicon: './public/logo.png', // Ajout du favicon
->>>>>>> f098293c3d2b5e2846605695e57df7758addf8c2
     }),
   ],  devServer: {
     static: {
