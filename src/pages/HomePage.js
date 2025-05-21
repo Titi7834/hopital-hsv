@@ -24,7 +24,6 @@ export default function HomePage() {
           {/* Desktop Navigation */}
           <div className="desktopMenu">
             <a href="#" className="navLink activeLink">Accueil</a>
-            <a href="#" className="navLink normalLink">Services</a>
             <a href="#" className="navLink normalLink">Médecins</a>
             <a href="#" className="navLink normalLink">Patients</a>
             <a href="#" className="navLink normalLink">À propos</a>
@@ -32,26 +31,17 @@ export default function HomePage() {
           </div>
           <div className="flexStart desktopMenu">
             <button className="appointmentButton">Prendre RDV</button>
-            <div className="searchContainer">
-              <Search size={20} className="searchIcon" />
-              <input type="text" placeholder="Rechercher..." className="searchInput" />
-            </div>
           </div>
         </div>
         {/* Mobile Navigation */}
         {menuOpen && (
           <div className="mobileMenu">
             <a href="#" className="navLink activeLink">Accueil</a>
-            <a href="#" className="navLink normalLink">Services</a>
             <a href="#" className="navLink normalLink">Médecins</a>
             <a href="#" className="navLink normalLink">Patients</a>
             <a href="#" className="navLink normalLink">À propos</a>
             <a href="#" className="navLink normalLink">Contact</a>
             <button className="appointmentButton">Prendre RDV</button>
-            <div className="searchContainer">
-              <Search size={20} className="searchIcon" />
-              <input type="text" placeholder="Rechercher..." className="searchInput" />
-            </div>
           </div>
         )}
       </nav>
@@ -76,7 +66,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="heroImage">
-            <span>Image de l'hôpital</span>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.4582864243516!2d2.268027676171527!3d49.00186559059939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e667ea03fff2e5%3A0x1178243bf7fa1007!2sH%C3%B4pital%20Simone%20Veil!5e0!3m2!1sfr!2sfr!4v1747822703382!5m2!1sfr!2sfr" width="648" height="300" allowFullScreen="" referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
