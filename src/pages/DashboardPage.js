@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../NavBar";
 import HospitalStats from "../components/HospitalStats";
+import './DashboardPage.css';
 
 const DashboardPage = () => {
     return (

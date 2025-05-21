@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../NavBar";
 import AppointmentForm from "../components/AppointmentForm";
+import './BookPage.css';
 
 const BookPage = () => {
     return (

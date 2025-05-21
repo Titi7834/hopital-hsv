@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Clock, MapPin, Phone, Calendar, Search, User, Menu, X, ChevronRight, ChevronDown, Heart, ArrowRight } from 'lucide-react';
 import './HomePage.css';
+import './BookPage';
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleClick = () => {
+    navigate('/book');
   };
 
   return (
@@ -26,11 +33,11 @@ export default function HomePage() {
             <a href="#" className="navLink activeLink">Accueil</a>
             <a href="#" className="navLink normalLink">Médecins</a>
             <a href="#" className="navLink normalLink">Patients</a>
-            <a href="#" className="navLink normalLink">À propos</a>
-            <a href="#" className="navLink normalLink">Contact</a>
-          </div>
+        </div>
+        <div className="flexStart desktopMenu">
+        </div>
           <div className="flexStart desktopMenu">
-            <button className="appointmentButton">Prendre RDV</button>
+            <button className="appointmentButton" onClick={handleClick}>Prendre RDV</button>
           </div>
         </div>
         {/* Mobile Navigation */}
