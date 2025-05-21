@@ -20,6 +20,10 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg|ico)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
@@ -28,6 +32,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      favicon: './public/logo.svg', // Ajout du favicon
     }),
   ],  devServer: {
     static: {

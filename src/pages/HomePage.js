@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../NavBar";
 import { Link } from "react-router-dom";
+// import logo from "../assets/lapin.jpg"; // Assuming you have a logo image in the assets folder
 
 const HomePage = () => {
     return (
@@ -9,6 +10,7 @@ const HomePage = () => {
             <div className="hero-section">
                 <div className="container">
                     <h1>Bienvenue à l'Hôpital HSV</h1>
+
                     <p className="hero-text">
                         Votre santé est notre priorité. Des soins médicaux d'excellence accessibles à tous.
                     </p>
