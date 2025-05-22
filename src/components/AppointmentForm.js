@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const AppointmentForm = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,10 @@ const AppointmentForm = () => {
   const [filteredMedecins, setFilteredMedecins] = useState([]);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+  const [credentials, setCredentials] = useState(null);
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const passwordRef = useRef(null);
 
   // Charger les spécialités au chargement du composant
   useEffect(() => {
@@ -55,6 +59,7 @@ const AppointmentForm = () => {
   const handleSpecialiteChange = (e) => {
     const specialite = e.target.value;
     setFormData({...formData, specialite, id_medecin: ''});
+    setSelectedDoctor(null);
     
     if (specialite) {
       const filtered = medecins.filter(m => m.specialite === specialite);
@@ -68,6 +73,31 @@ const AppointmentForm = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({...formData, [name]: value});
+    
+    // Si c'est le médecin qui a changé, mettre à jour selectedDoctor
+    if (name === 'id_medecin' && value) {
+      const doctor = medecins.find(m => m.id_medecin.toString() === value);
+      setSelectedDoctor(doctor);
+    } else if (name === 'id_medecin' && !value) {
+      setSelectedDoctor(null);
+    }
+  };
+
+  // Fonction pour copier le mot de passe
+  const copyPassword = () => {
+    if (passwordRef.current) {
+      passwordRef.current.select();
+      document.execCommand('copy');
+      // Désélectionner pour éviter le focus bleu
+      window.getSelection().removeAllRanges();
+      
+      // Feedback temporaire
+      const originalText = document.getElementById('copy-btn').innerText;
+      document.getElementById('copy-btn').innerText = 'Copié !';
+      setTimeout(() => {
+        document.getElementById('copy-btn').innerText = originalText;
+      }, 2000);
+    }
   };
 
   // Soumission du formulaire
@@ -75,6 +105,7 @@ const AppointmentForm = () => {
     e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
+    setCredentials(null);
     
     // Vérifier la date
     if (formData.date_rdv) {
@@ -131,7 +162,10 @@ const AppointmentForm = () => {
         throw new Error('Erreur lors de la création du rendez-vous');
       }
       
-      setSuccessMessage('Rendez-vous pris avec succès !');
+      // Stockage des credentials pour affichage
+      setCredentials({ login, mdp });
+      
+      setSuccessMessage('Rendez-vous pris avec succès ! Veuillez conserver vos identifiants ci-dessous pour accéder à votre espace patient.');
       setFormData({
         nom: '',
         prenom: '',
@@ -148,9 +182,18 @@ const AppointmentForm = () => {
     }
   };
 
+  // Fonction pour afficher l'image du médecin avec fallback
+  const getDoctorImage = (imageFilename) => {
+    try {
+      return `/doctors/${imageFilename}`;
+    } catch (error) {
+      return '/doctors/default.jpg';
+    }
+  };
+
   return (
     <div className="appointment-form">
-      {!showForm && (
+      {!showForm && !credentials && (
         <button 
           onClick={() => setShowForm(true)} 
           className="btn-show-form"
@@ -168,6 +211,67 @@ const AppointmentForm = () => {
       {errorMessage && (
         <div className="error-message">
           {errorMessage}
+        </div>
+      )}
+      
+      {credentials && (
+        <div className="credentials-card">
+          <h3>Vos identifiants</h3>
+          <p className="credentials-info">
+            Conservez précieusement ces informations pour vous connecter à votre espace patient.
+          </p>
+          
+          <div className="credential-item">
+            <label>Identifiant :</label>
+            <div className="credential-value">{credentials.login}</div>
+          </div>
+          
+          <div className="credential-item">
+            <label>Mot de passe :</label>
+            <div className="password-container">
+              <input 
+                ref={passwordRef}
+                type={passwordVisible ? "text" : "password"} 
+                readOnly 
+                value={credentials.mdp} 
+                className="credential-value password-field"
+              />
+              <button 
+                type="button" 
+                className="btn-toggle-password" 
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? "Masquer" : "Afficher"}
+              </button>
+              <button 
+                id="copy-btn"
+                type="button" 
+                className="btn-copy-password" 
+                onClick={copyPassword}
+              >
+                Copier
+              </button>
+            </div>
+          </div>
+          
+          <div className="credentials-actions">
+            <button 
+              onClick={() => {
+                setCredentials(null);
+                setShowForm(false);
+                setSuccessMessage('');
+              }} 
+              className="btn-credentials-done"
+            >
+              J'ai sauvegardé mes identifiants
+            </button>
+            <button 
+              onClick={() => setShowForm(true)} 
+              className="btn-new-appointment"
+            >
+              Prendre un autre rendez-vous
+            </button>
+          </div>
         </div>
       )}
       
@@ -222,22 +326,41 @@ const AppointmentForm = () => {
             </select>
           </div>
           
-          <div className="form-group">
-            <label>Médecin :</label>
-            <select 
-              name="id_medecin"
-              value={formData.id_medecin}
-              onChange={handleInputChange}
-              required
-              disabled={!formData.specialite}
-            >
-              <option value="">-- Choisir un médecin --</option>
-              {filteredMedecins.map((medecin) => (
-                <option key={medecin.id_medecin} value={medecin.id_medecin}>
-                  {medecin.nom} {medecin.prenom}
-                </option>
-              ))}
-            </select>
+          <div className="form-section">
+            <div className="form-group doctor-selection">
+              <label>Médecin :</label>
+              <select 
+                name="id_medecin"
+                value={formData.id_medecin}
+                onChange={handleInputChange}
+                required
+                disabled={!formData.specialite}
+              >
+                <option value="">-- Choisir un médecin --</option>
+                {filteredMedecins.map((medecin) => (
+                  <option key={medecin.id_medecin} value={medecin.id_medecin}>
+                    {medecin.nom} {medecin.prenom}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            {selectedDoctor && (
+              <div className="doctor-card">
+                <img 
+                  src={getDoctorImage(selectedDoctor.image)} 
+                  alt={`Dr. ${selectedDoctor.nom} ${selectedDoctor.prenom}`}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/doctors/default.jpg';
+                  }}
+                />
+                <div className="doctor-info">
+                  <h4>Dr. {selectedDoctor.nom} {selectedDoctor.prenom}</h4>
+                  <p>{selectedDoctor.specialite}</p>
+                </div>
+              </div>
+            )}
           </div>
           
           <div className="form-group">

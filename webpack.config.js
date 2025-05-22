@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); 
 const path = require('path');
 
 module.exports = {
@@ -33,6 +34,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/logo.png', // Ajout du favicon
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/doctors', to: 'doctors' }
+      ],
     }),
   ],  devServer: {
     static: {

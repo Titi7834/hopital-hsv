@@ -7,6 +7,7 @@ const HospitalStats = () => {
     totalAppointments: 0,
     specialties: []
   });
+  const [doctors, setDoctors] = useState([]);
 
   // Simulation de chargement des données depuis l'API
   useEffect(() => {
@@ -14,13 +15,18 @@ const HospitalStats = () => {
       setIsLoading(true);
       
       try {
-        // Chargement des médecins pour compter le nombre total et les spécialités        const medecinsResponse = await fetch('/api/medecins');
+        // Chargement des médecins pour compter le nombre total et les spécialités
+        const medecinsResponse = await fetch('/api/medecins');
         
         if (!medecinsResponse.ok) {
           throw new Error('Erreur lors du chargement des médecins');
         }
         
         const medecinsData = await medecinsResponse.json();
+        setDoctors(medecinsData);
+        
+        // Extraction des spécialités uniques
+        const specialties = [...new Set(medecinsData.map(doc => doc.specialite))];
         
         // Dans un vrai scénario, on récupérerait aussi les rendez-vous
         // et d'autres statistiques depuis l'API
@@ -28,9 +34,9 @@ const HospitalStats = () => {
         // Simulation de données pour l'instant
         setTimeout(() => {
           setStats({
-            totalDoctors: 3, // Selon les données insérées dans initSql
+            totalDoctors: medecinsData.length,
             totalAppointments: Math.floor(Math.random() * 50),
-            specialties: ['Cardiologie', 'Dermatologie', 'Généraliste']
+            specialties: specialties
           });
           setIsLoading(false);
         }, 1000);
@@ -44,12 +50,18 @@ const HospitalStats = () => {
     fetchStats();
   }, []);
 
+  // Fonction pour afficher l'image du médecin avec fallback
+  const getDoctorImage = (imageFilename) => {
+    return `/doctors/${imageFilename}`;
+  };
+
   if (isLoading) {
     return <div className="loading-spinner">Chargement des statistiques...</div>;
   }
 
   return (
     <div className="hospital-stats">
+      {/* Stats Cards Section */}
       <div className="stats-grid">
         <div className="stat-card">
           <h3>Médecins</h3>
@@ -70,13 +82,42 @@ const HospitalStats = () => {
         </div>
       </div>
       
-      <div className="specialties-section">
-        <h3>Nos spécialités</h3>
-        <ul className="specialties-list">
-          {stats.specialties.map((specialty, index) => (
-            <li key={index}>{specialty}</li>
-          ))}
-        </ul>
+      {/* Two-Column Layout for Specialties and Medical Team */}
+      <div className="dashboard-layout">
+        <div className="dashboard-row">
+          {/* Specialties Column */}
+          <div className="dashboard-section specialties-section">
+            <h3>Nos spécialités</h3>
+            <ul className="specialites-list">
+              {stats.specialties.map((specialty, index) => (
+                <li key={index}>{specialty}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Medical Team Column */}
+          <div className="dashboard-section doctors-showcase">
+            <h3>Notre équipe médicale</h3>
+            <div className="doctors-grid">
+              {doctors.map((doctor) => (
+                <div className="doctor-profile" key={doctor.id_medecin}>
+                  <img 
+                    src={getDoctorImage(doctor.image)} 
+                    alt={`Dr. ${doctor.nom} ${doctor.prenom}`}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/doctors/default.jpg';
+                    }}
+                  />
+                  <div className="doctor-info">
+                    <h4>Dr. {doctor.nom} {doctor.prenom}</h4>
+                    <p>{doctor.specialite}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
