@@ -154,7 +154,13 @@ const AppointmentForm = () => {
         body: JSON.stringify({
           id_patient: patientData.id_patient,
           id_medecin: formData.id_medecin,
-          date_rdv: dateFormatted
+          date_rdv: dateFormatted,
+          mdp : mdp,
+          login : login,
+          age : formData.age,
+          id_medecin : formData.id_medecin,
+          nom : formData.nom,
+          prenom : formData.prenom
         })
       });
       
