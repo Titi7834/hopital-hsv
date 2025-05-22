@@ -61,8 +61,15 @@ DEALLOCATE PREPARE stmt;
 -- Insérer ou mettre à jour les médecins avec leurs images
 INSERT INTO Medecin (id_medecin, nom, prenom, specialite, image) VALUES
   (1, 'Dupont', 'Jean', 'Cardiologie', 'doctor1.jpg'),
-  (2, 'Martin', 'Sophie', 'Dermatologie', 'doctor2.jpg'),
-  (3, 'Durand', 'Paul', 'Généraliste', 'doctor3.jpg')
+  (2, 'Lefebvre', 'Marie', 'Cardiologie', 'doctor2.jpg'),
+  (3, 'Garcia', 'Antoine', 'Pédiatrie', 'doctor3.jpg'),
+  (4, 'Bernard', 'Lucie', 'Pédiatrie', 'doctor4.jpg'),
+  (5, 'Dubois', 'Sarah', 'Pédiatrie', 'doctor5.jpg'),
+  (6, 'Thomas', 'Richard', 'Neurologie', 'doctor6.jpg'),
+  (7, 'Petit', 'Claire', 'Neurologie', 'doctor7.jpg'),
+  (8, 'Robert', 'Michel', 'Urgences', 'doctor8.jpg'),
+  (9, 'Simon', 'Isabelle', 'Urgences', 'doctor9.jpg'),
+  (10, 'Leroy', 'François', 'Urgences', 'doctor10.jpg')
 ON DUPLICATE KEY UPDATE 
   nom = VALUES(nom), 
   prenom = VALUES(prenom), 

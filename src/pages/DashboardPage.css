@@ -314,16 +314,12 @@
   height: 100%;
 }
 
-.doctor-profile:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary-light);
-}
-
 .doctor-profile img {
   width: 100%;
-  height: 220px;
+  height: 440px;
   object-fit: cover;
+  margin-bottom: 0;
+  display: block;
 }
 
 .doctor-profile:hover img {
@@ -331,14 +327,17 @@
 }
 
 .doctor-info {
-  padding: 1.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   text-align: center;
+  margin-top: 0;
+  position: relative;
+  background-color: white;
 }
 
 .doctor-info h4 {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   color: var(--grey-900);
 }
 
@@ -447,12 +446,12 @@
 
 .doctor-profile img {
   width: 100%;
-  height: 220px;
+  height: 440px; /* Doubled from 220px to make images twice as large */
   object-fit: cover;
 }
 
 .doctor-info {
-  padding: 1.5rem 1rem;
+  padding: 0.75rem 0.5rem; /* Reduced padding to accommodate larger images */
   text-align: center;
 }
 
