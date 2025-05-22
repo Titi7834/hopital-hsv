@@ -185,10 +185,6 @@ nav a[href="/book"]::before {
   display: none;
 }
 
-nav a[href="/dashboard"] {
-  /* Dashboard - Professional style */
-  border: 1px solid var(--grey-300);
-}
 
 nav a[href="/dashboard"]:hover {
   border-color: var(--primary);

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, MapPin, Phone, Calendar, Search, User, Menu, X, ChevronRight, ChevronDown, Heart, ArrowRight } from 'lucide-react';
 import './HomePage.css';
-import './BookPage';
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -73,7 +72,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="heroImage">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.4582864243516!2d2.268027676171527!3d49.00186559059939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e667ea03fff2e5%3A0x1178243bf7fa1007!2sH%C3%B4pital%20Simone%20Veil!5e0!3m2!1sfr!2sfr!4v1747822703382!5m2!1sfr!2sfr" width="648" height="300" allowFullScreen="" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.4582864243516!2d2.268027676171527!3d49.00186559059939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e667ea03fff2e5%3A0x1178243bf7fa1007!2sH%C3%B4pital%20Simone%20Veil!5e0!3m2!1sfr!2sfr!4v1747822703382!5m2!1sfr!2sfr" width="648" height="300" allowFullScreen={true}></iframe>
           </div>
         </div>
       </div>
@@ -89,8 +88,6 @@ export default function HomePage() {
             { icon: <Heart size={32} className="serviceIcon" />, title: "Cardiologie", desc: "Soins spécialisés pour la santé de votre cœur par nos cardiologues experts." },
             { icon: <User size={32} className="serviceIcon" />, title: "Pédiatrie", desc: "Soins attentionnés et adaptés pour la santé de vos enfants." },
             { icon: <Heart size={32} className="serviceIcon" />, title: "Neurologie", desc: "Traitement avancé des troubles du système nerveux." },
-            { icon: <User size={32} className="serviceIcon" />, title: "Orthopédie", desc: "Restauration de la mobilité et traitement des problèmes musculo-squelettiques." },
-            { icon: <Heart size={32} className="serviceIcon" />, title: "Oncologie", desc: "Traitement du cancer avec les dernières avancées médicales." },
             { icon: <User size={32} className="serviceIcon" />, title: "Urgences", desc: "Soins d'urgence disponibles 24h/24 et 7j/7." }
           ].map((service, index) => (
             <div key={index} className="serviceCard">
@@ -99,22 +96,6 @@ export default function HomePage() {
               <p className="serviceDescription">{service.desc}</p>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Appointment Section */}
-      <div className="appointment">
-        <div className="appointmentContent">
-          <div>
-            <h2 className="appointmentTitle">Besoin d'un rendez-vous médical?</h2>
-            <p className="appointmentDescription">
-              Notre équipe médicale est prête à vous accompagner. Prenez rendez-vous facilement en ligne ou par téléphone.
-            </p>
-          </div>
-          <button className="appointmentButton">
-            <Calendar className="mr-2" size={18} />
-            Prendre rendez-vous maintenant
-          </button>
         </div>
       </div>
 
