@@ -8,30 +8,22 @@ const HospitalStats = () => {
     specialties: []
   });
   const [doctors, setDoctors] = useState([]);
+  const [selectedSpecialty, setSelectedSpecialty] = useState("");
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
 
-  // Simulation de chargement des données depuis l'API
   useEffect(() => {
     const fetchStats = async () => {
       setIsLoading(true);
-      
       try {
-        // Chargement des médecins pour compter le nombre total et les spécialités
         const medecinsResponse = await fetch('/api/medecins');
-        
         if (!medecinsResponse.ok) {
           throw new Error('Erreur lors du chargement des médecins');
         }
-        
         const medecinsData = await medecinsResponse.json();
         setDoctors(medecinsData);
-        
-        // Extraction des spécialités uniques
+
         const specialties = [...new Set(medecinsData.map(doc => doc.specialite))];
-        
-        // Dans un vrai scénario, on récupérerait aussi les rendez-vous
-        // et d'autres statistiques depuis l'API
-        
-        // Simulation de données pour l'instant
+
         setTimeout(() => {
           setStats({
             totalDoctors: medecinsData.length,
@@ -40,17 +32,22 @@ const HospitalStats = () => {
           });
           setIsLoading(false);
         }, 1000);
-        
       } catch (error) {
         console.error('Erreur de chargement des statistiques:', error);
         setIsLoading(false);
       }
     };
-    
     fetchStats();
   }, []);
 
-  // Fonction pour afficher l'image du médecin avec fallback
+  useEffect(() => {
+    if (selectedSpecialty) {
+      setFilteredDoctors(doctors.filter(doc => doc.specialite === selectedSpecialty));
+    } else {
+      setFilteredDoctors([]);
+    }
+  }, [selectedSpecialty, doctors]);
+
   const getDoctorImage = (imageFilename) => {
     return `/doctors/${imageFilename}`;
   };
@@ -68,13 +65,11 @@ const HospitalStats = () => {
           <div className="stat-value">{stats.totalDoctors}</div>
           <p>Professionnels de santé</p>
         </div>
-        
         <div className="stat-card">
           <h3>Spécialités</h3>
           <div className="stat-value">{stats.specialties.length}</div>
           <p>Domaines médicaux</p>
         </div>
-        
         <div className="stat-card">
           <h3>Rendez-vous</h3>
           <div className="stat-value">{stats.totalAppointments}</div>
@@ -85,40 +80,67 @@ const HospitalStats = () => {
       {/* Two-Column Layout for Specialties and Medical Team */}
       <div className="dashboard-layout">
         <div className="dashboard-row">
-          {/* Specialties Column */}
+          {/* Specialties Column with filter */}
           <div className="dashboard-section specialties-section">
             <h3>Nos spécialités</h3>
             <ul className="specialites-list">
               {stats.specialties.map((specialty, index) => (
-                <li key={index}>{specialty}</li>
+                <li
+                  key={index}
+                  className={selectedSpecialty === specialty ? "selected-specialty" : ""}
+                  style={{
+                    cursor: "pointer",
+                    fontWeight: selectedSpecialty === specialty ? "bold" : "normal",
+                    color: selectedSpecialty === specialty ? "#1a56db" : "#222"
+                  }}
+                  onClick={() => setSelectedSpecialty(specialty)}
+                >
+                  {specialty}
+                </li>
               ))}
+              <li
+                style={{
+                  cursor: "pointer",
+                  fontWeight: !selectedSpecialty ? "bold" : "normal",
+                  color: !selectedSpecialty ? "#1a56db" : "#222"
+                }}
+                onClick={() => setSelectedSpecialty("")}
+              >
+                Toutes
+              </li>
             </ul>
           </div>
 
-          {/* Medical Team Column */}
+          {/* Medical Team Column filtered by specialty */}
           <div className="dashboard-section doctors-showcase">
-            <h3>Notre équipe médicale</h3>
+            <h3>
+              {selectedSpecialty
+                ? `Médecins en ${selectedSpecialty}`
+                : "Notre équipe médicale"}
+            </h3>
             <div className="doctors-grid">
-              {doctors
-                // Shuffle the array and take only the first 3 doctors
+              {(selectedSpecialty ? filteredDoctors : doctors
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 3)
-                .map((doctor) => (
-                  <div className="doctor-profile" key={doctor.id_medecin}>
-                    <img 
-                      src={getDoctorImage(doctor.image)} 
-                      alt={`Dr. ${doctor.nom} ${doctor.prenom}`}
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = '/doctors/default.jpg';
-                      }}
-                    />
-                    <div className="doctor-info">
-                      <h4>Dr. {doctor.nom} {doctor.prenom}</h4>
-                      <p>{doctor.specialite}</p>
-                    </div>
+              ).map((doctor) => (
+                <div className="doctor-profile" key={doctor.id_medecin}>
+                  <img
+                    src={getDoctorImage(doctor.image)}
+                    alt={`Dr. ${doctor.nom} ${doctor.prenom}`}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = '/doctors/default.jpg';
+                    }}
+                  />
+                  <div className="doctor-info">
+                    <h4>Dr. {doctor.nom} {doctor.prenom}</h4>
+                    <p>{doctor.specialite}</p>
                   </div>
-                ))}
+                </div>
+              ))}
+              {(selectedSpecialty && filteredDoctors.length === 0) && (
+                <div style={{ padding: 16 }}>Aucun médecin pour cette spécialité.</div>
+              )}
             </div>
           </div>
         </div>
