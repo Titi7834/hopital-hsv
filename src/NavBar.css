@@ -1,0 +1,226 @@
+/* NavBar Styles - Harmonized with HomePage.css */
+
+/* Import the same font and use the same CSS variables */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables (matching HomePage.css) */
+:root {
+  --primary: #1e40af;
+  --primary-light: #3b82f6;
+  --primary-dark: #1e3a8a;
+  --secondary: #14b8a6;
+  --accent: #0ea5e9;
+  --grey-50: #f9fafb;
+  --grey-100: #f3f4f6;
+  --grey-200: #e5e7eb;
+  --grey-300: #d1d5db;
+  --grey-400: #9ca3af;
+  --grey-500: #6b7280;
+  --grey-600: #4b5563;
+  --grey-700: #374151;
+  --grey-800: #1f2937;
+  --grey-900: #111827;
+  --text: #334155;
+  --text-light: #64748b;
+  --border-radius: 8px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --transition: all 0.3s ease;
+}
+
+/* Navigation Container */
+nav {
+  background-color: white;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  font-family: 'Poppins', sans-serif;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+/* Navigation List */
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 1rem 1.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+/* Navigation List Items */
+nav li {
+  margin: 0;
+}
+
+/* Navigation Links */
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.025em;
+}
+
+/* Hover Effects */
+nav a:hover {
+  color: var(--primary);
+  background-color: rgba(59, 130, 246, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Active Link Styles */
+nav a.active {
+  color: var(--primary);
+  background-color: rgba(59, 130, 246, 0.1);
+  font-weight: 600;
+}
+
+/* Underline Animation */
+nav a::before {
+  content: '';
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+  transition: width 0.3s ease, left 0.3s ease;
+  border-radius: 1px;
+}
+
+nav a:hover::before,
+nav a.active::before {
+  width: calc(100% - 2.5rem);
+  left: 1.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  
+  nav a {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid var(--grey-200);
+    margin-bottom: 0.5rem;
+  }
+  
+  nav a:hover {
+    border-color: var(--primary-light);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  nav a::before {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  nav ul {
+    padding: 0.75rem;
+  }
+  
+  nav a {
+    font-size: 0.9rem;
+    padding: 0.875rem;
+  }
+}
+
+/* Animation for nav appearance */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+nav {
+  animation: fadeInDown 0.6s ease-out forwards;
+}
+
+/* Special styling for different navigation items */
+nav a[href="/"] {
+  /* Accueil - Home icon style */
+  position: relative;
+}
+
+nav a[href="/book"] {
+  /* Réserver - Booking emphasis */
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+
+nav a[href="/book"]:hover {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+nav a[href="/book"]::before {
+  display: none;
+}
+
+nav a[href="/dashboard"] {
+  /* Dashboard - Professional style */
+  border: 1px solid var(--grey-300);
+}
+
+nav a[href="/dashboard"]:hover {
+  border-color: var(--primary);
+  background-color: var(--grey-50);
+}
+
+/* Focus states for accessibility */
+nav a:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Subtle shadow enhancement on scroll */
+nav.scrolled {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Add a subtle background pattern similar to hero section */
+nav {
+  position: relative;
+}
+
+nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--primary-light) 50%, 
+    transparent 100%);
+  opacity: 0.3;
+}
