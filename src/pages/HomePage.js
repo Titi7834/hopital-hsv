@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, MapPin, Phone, Calendar, Search, User, Menu, X, ChevronRight, ChevronDown, Heart, ArrowRight } from 'lucide-react';
 import './HomePage.css';
-import './BookPage';
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,9 +32,9 @@ export default function HomePage() {
             <a href="#" className="navLink activeLink">Accueil</a>
             <a href="#" className="navLink normalLink">Médecins</a>
             <a href="#" className="navLink normalLink">Patients</a>
-        </div>
-        <div className="flexStart desktopMenu">
-        </div>
+          </div>
+          <div className="flexStart desktopMenu">
+          </div>
           <div className="flexStart desktopMenu">
             <button className="appointmentButton" onClick={handleClick}>Prendre RDV</button>
           </div>
@@ -133,42 +132,30 @@ export default function HomePage() {
             <div className="footerLogo">Hôpital HSV</div>
             <div className="footerDescription">Votre santé, notre priorité depuis plus de 30 ans.</div>
             <div className="socialLinks">
-              <a href="#" className="socialIcon" style={{ backgroundColor: '#1a56db' }}>
-                <span className="sr-only">Facebook</span>
+              <a className="socialIcon" style={{ backgroundColor: '#1a56db' }}>
+                <span className="sr-only">Bleu</span>
               </a>
-              <a href="#" className="socialIcon" style={{ backgroundColor: '#60a5fa' }}>
-                <span className="sr-only">Twitter</span>
+              <a className="socialIcon" style={{ backgroundColor: '#60a5fa' }}>
+                <span className="sr-only">Bleu Clair</span>
               </a>
-              <a href="#" className="socialIcon" style={{ backgroundColor: '#ef4444' }}>
-                <span className="sr-only">YouTube</span>
+              <a className="socialIcon" style={{ backgroundColor: '#ef4444' }}>
+                <span className="sr-only">Rouge</span>
               </a>
             </div>
           </div>
           <div>
-            <div className="columnTitle">Liens rapides</div>
-            <ul className="footerList">
-              <li className="footerListItem"><a href="#" className="footerLink">Accueil</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Services</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Médecins</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Carrières</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Contact</a></li>
-            </ul>
-          </div>
-          <div>
             <div className="columnTitle">Nos services</div>
             <ul className="footerList">
-              <li className="footerListItem"><a href="#" className="footerLink">Cardiologie</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Neurologie</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Pédiatrie</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Orthopédie</a></li>
-              <li className="footerListItem"><a href="#" className="footerLink">Oncologie</a></li>
+              <li className="footerListItem"><a className="footerLink">Cardiologie</a></li>
+              <li className="footerListItem"><a className="footerLink">Neurologie</a></li>
+              <li className="footerListItem"><a className="footerLink">Pédiatrie</a></li>
             </ul>
           </div>
           <div>
             <div className="columnTitle">Contact</div>
             <div className="contactItem">
               <MapPin size={20} className="contactIcon" />
-              <span className="contactText">3 Avenue de la Santé<br />75000 Paris, France</span>
+              <span className="contactText">14 Rue de Saint-Prix<br />95600 Eaubonne France</span>
             </div>
             <div className="contactItem">
               <Phone size={20} className="contactIcon" />
@@ -178,14 +165,6 @@ export default function HomePage() {
               <ArrowRight size={20} className="contactIcon" />
               <span className="contactText">contact@hopital-hsv.fr</span>
             </div>
-          </div>
-        </div>
-        <div className="footerBottom">
-          <div className="copyright">© 2025 Hôpital HSV. Tous droits réservés.</div>
-          <div className="legalLinks">
-            <a href="#" className="legalLink">Politique de confidentialité</a>
-            <a href="#" className="legalLink">Mentions légales</a>
-            <a href="#" className="legalLink">Plan du site</a>
           </div>
         </div>
       </footer>
