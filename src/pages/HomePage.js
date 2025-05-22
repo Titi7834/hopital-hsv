@@ -89,8 +89,6 @@ export default function HomePage() {
             { icon: <Heart size={32} className="serviceIcon" />, title: "Cardiologie", desc: "Soins spécialisés pour la santé de votre cœur par nos cardiologues experts." },
             { icon: <User size={32} className="serviceIcon" />, title: "Pédiatrie", desc: "Soins attentionnés et adaptés pour la santé de vos enfants." },
             { icon: <Heart size={32} className="serviceIcon" />, title: "Neurologie", desc: "Traitement avancé des troubles du système nerveux." },
-            { icon: <User size={32} className="serviceIcon" />, title: "Orthopédie", desc: "Restauration de la mobilité et traitement des problèmes musculo-squelettiques." },
-            { icon: <Heart size={32} className="serviceIcon" />, title: "Oncologie", desc: "Traitement du cancer avec les dernières avancées médicales." },
             { icon: <User size={32} className="serviceIcon" />, title: "Urgences", desc: "Soins d'urgence disponibles 24h/24 et 7j/7." }
           ].map((service, index) => (
             <div key={index} className="serviceCard">
@@ -99,22 +97,6 @@ export default function HomePage() {
               <p className="serviceDescription">{service.desc}</p>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Appointment Section */}
-      <div className="appointment">
-        <div className="appointmentContent">
-          <div>
-            <h2 className="appointmentTitle">Besoin d'un rendez-vous médical?</h2>
-            <p className="appointmentDescription">
-              Notre équipe médicale est prête à vous accompagner. Prenez rendez-vous facilement en ligne ou par téléphone.
-            </p>
-          </div>
-          <button className="appointmentButton">
-            <Calendar className="mr-2" size={18} />
-            Prendre rendez-vous maintenant
-          </button>
         </div>
       </div>
 
