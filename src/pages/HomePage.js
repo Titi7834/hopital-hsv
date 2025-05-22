@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, MapPin, Phone, Calendar, Search, User, Menu, X, ChevronRight, ChevronDown, Heart, ArrowRight } from 'lucide-react';
 import './HomePage.css';
-import './BookPage';
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -73,7 +72,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="heroImage">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.4582864243516!2d2.268027676171527!3d49.00186559059939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e667ea03fff2e5%3A0x1178243bf7fa1007!2sH%C3%B4pital%20Simone%20Veil!5e0!3m2!1sfr!2sfr!4v1747822703382!5m2!1sfr!2sfr" width="648" height="300" allowFullScreen="" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.4582864243516!2d2.268027676171527!3d49.00186559059939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e667ea03fff2e5%3A0x1178243bf7fa1007!2sH%C3%B4pital%20Simone%20Veil!5e0!3m2!1sfr!2sfr!4v1747822703382!5m2!1sfr!2sfr" width="648" height="300" allowFullScreen={true}></iframe>
           </div>
         </div>
       </div>
