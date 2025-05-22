@@ -170,21 +170,76 @@ app.get('/api/medecins/specialite/:specialite', (req, res) => {
     );
 });
 
-// --- API Rendez-vous ---
-app.post('/api/rendezvous', (req, res) => {
-    const { id_patient, id_medecin, date_rdv } = req.body;
-    if (!id_patient || !id_medecin || !date_rdv) {
-        return res.status(400).send('Données incomplètes');
-    }
+app.get('/api/rendezvous/all', (req, res) => {
     db.query(
-        'INSERT INTO RendezVous (id_patient, id_medecin, date_rdv) VALUES (?, ?, ?)',
-        [id_patient, id_medecin, date_rdv],
-        (err) => {
+        `SELECT 
+            r.id_rdv, r.date_rdv, r.id_patient,
+            p.nom AS nom_patient, p.prenom AS prenom_patient,
+            m.nom AS nom_medecin, m.prenom AS prenom_medecin
+        FROM RendezVous r
+        JOIN Patient p ON r.id_patient = p.id_patient
+        JOIN Medecin m ON r.id_medecin = m.id_medecin
+        ORDER BY r.date_rdv DESC`,
+        (err, results) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send('Erreur base de données');
             }
-            res.send({ message: 'Rendez-vous ajouté' });
+            res.json(results);
+        }
+    );
+});
+
+// --- API Rendez-vous ---
+app.post('/api/rendezvous', (req, res) => {
+    const { nom, prenom, age, login, mdp, id_medecin, date_rdv } = req.body;
+    if (!nom || !prenom || !login || !mdp || !age || !id_medecin || !date_rdv) {
+        return res.status(400).send('Données incomplètes');
+    }
+    // Chercher si le patient existe déjà
+    db.query(
+        'SELECT id_patient FROM Patient WHERE nom = ? AND prenom = ?',
+        [nom, prenom],
+        (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Erreur base de données');
+            }
+            let id_patient;
+            if (results.length > 0) {
+                // Patient existe déjà
+                id_patient = results[0].id_patient;
+                insertRdv(id_patient);
+            } else {
+                // Nouveau patient, on l'ajoute
+                const loginChiffre = chiffrer(login);
+                const mdpChiffre = chiffrer(mdp);
+                db.query(
+                    'INSERT INTO Patient (nom, prenom, age, login, mdp) VALUES (?, ?, ?, ?, ?)',
+                    [nom, prenom, age, loginChiffre, mdpChiffre],
+                    (err2, result) => {
+                        if (err2) {
+                            console.error(err2);
+                            return res.status(500).send('Erreur base de données');
+                        }
+                        id_patient = result.insertId;
+                        insertRdv(id_patient);
+                    }
+                );
+            }
+            function insertRdv(id_patient) {
+                db.query(
+                    'INSERT INTO RendezVous (id_patient, id_medecin, date_rdv) VALUES (?, ?, ?)',
+                    [id_patient, id_medecin, date_rdv],
+                    (err3) => {
+                        if (err3) {
+                            console.error(err3);
+                            return res.status(500).send('Erreur base de données');
+                        }
+                        res.send({ message: 'Rendez-vous ajouté', id_patient });
+                    }
+                );
+            }
         }
     );
 });
