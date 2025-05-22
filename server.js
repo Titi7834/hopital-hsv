@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS Medecin (
   id_medecin INT AUTO_INCREMENT PRIMARY KEY,
   nom VARCHAR(100),
   prenom VARCHAR(100),
-  specialite VARCHAR(100)
+  specialite VARCHAR(100),
+  image VARCHAR(255) DEFAULT 'default.jpg'
 );
 CREATE TABLE IF NOT EXISTS RendezVous (
   id_rdv INT AUTO_INCREMENT PRIMARY KEY,
@@ -46,10 +47,27 @@ CREATE TABLE IF NOT EXISTS RendezVous (
   FOREIGN KEY (id_patient) REFERENCES Patient(id_patient),
   FOREIGN KEY (id_medecin) REFERENCES Medecin(id_medecin)
 );
-INSERT IGNORE INTO Medecin (id_medecin, nom, prenom, specialite) VALUES
-  (1, 'Dupont', 'Jean', 'Cardiologie'),
-  (2, 'Martin', 'Sophie', 'Dermatologie'),
-  (3, 'Durand', 'Paul', 'Généraliste');
+
+-- Vérifier si la colonne image existe déjà
+SET @exist := (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS 
+  WHERE TABLE_SCHEMA = 'Hopital_HSV' AND TABLE_NAME = 'Medecin' AND COLUMN_NAME = 'image');
+
+-- Si elle n'existe pas, l'ajouter
+SET @query = IF(@exist = 0, 'ALTER TABLE Medecin ADD COLUMN image VARCHAR(255) DEFAULT "default.jpg"', 'SELECT "Column already exists"');
+PREPARE stmt FROM @query;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- Insérer ou mettre à jour les médecins avec leurs images
+INSERT INTO Medecin (id_medecin, nom, prenom, specialite, image) VALUES
+  (1, 'Dupont', 'Jean', 'Cardiologie', 'doctor1.jpg'),
+  (2, 'Martin', 'Sophie', 'Dermatologie', 'doctor2.jpg'),
+  (3, 'Durand', 'Paul', 'Généraliste', 'doctor3.jpg')
+ON DUPLICATE KEY UPDATE 
+  nom = VALUES(nom), 
+  prenom = VALUES(prenom), 
+  specialite = VALUES(specialite), 
+  image = VALUES(image);
 `;
 dbRoot.query(initSql, (err) => {
     if (err) {
@@ -107,7 +125,7 @@ app.post('/api/patients', (req, res) => {
 
 // --- API Médecins ---
 app.get('/api/medecins', (req, res) => {
-    db.query('SELECT id_medecin, nom, prenom, specialite FROM Medecin', (err, results) => {
+    db.query('SELECT id_medecin, nom, prenom, specialite, image FROM Medecin', (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).send('Erreur base de données');
@@ -133,7 +151,7 @@ app.get('/api/specialites', (req, res) => {
 app.get('/api/medecins/specialite/:specialite', (req, res) => {
     const specialite = req.params.specialite;
     db.query(
-        'SELECT id_medecin, nom, prenom FROM Medecin WHERE specialite = ?',
+        'SELECT id_medecin, nom, prenom, image FROM Medecin WHERE specialite = ?',
         [specialite],
         (err, results) => {
             if (err) {
@@ -163,6 +181,9 @@ app.post('/api/rendezvous', (req, res) => {
         }
     );
 });
+
+// Servir les fichiers statiques depuis le dossier public
+app.use(express.static(path.join(__dirname, 'public')));
 
 // En développement, l'API sera servie sur un port différent
 const PORT = process.env.PORT || 3001;
