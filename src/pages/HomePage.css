@@ -1,12 +1,11 @@
-/* Base styles and reset */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary: #1e40af;
+  --primary: #9370DB;
   --primary-light: #3b82f6;
   --primary-dark: #1e3a8a;
-  --secondary: #14b8a6;
-  --accent: #0ea5e9;
+    --secondary: #14b8a6;
+    --accent: #0ea5e9;
   --grey-50: #f9fafb;
   --grey-100: #f3f4f6;
   --grey-200: #e5e7eb;
@@ -33,7 +32,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
