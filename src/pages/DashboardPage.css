@@ -283,17 +283,14 @@
 .specialites-list li {
   background-color: rgba(59, 130, 246, 0.1);
   color: var(--primary);
-  padding: 0.75rem 1.25rem;
+  padding: 0.85rem 1.5rem;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 1.2rem; /* Increased font size for better visibility */
   font-weight: 500;
   list-style: none;
   transition: all 0.2s ease;
-}
-
-.specialites-list li:hover {
-  background-color: rgba(59, 130, 246, 0.2);
-  transform: translateY(-2px);
+  text-align: center;
+  min-width: 150px; /* Ensure minimum width for each specialty item */
 }
 
 /* Notre équipe médicale section */
@@ -312,14 +309,16 @@
   transition: all 0.3s ease;
   border: 1px solid #f0f0f0;
   height: 100%;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
 }
 
 .doctor-profile img {
   width: 100%;
-  height: 440px;
+  height: 220px; /* Reduced to match the example image */
   object-fit: cover;
-  margin-bottom: 0;
-  display: block;
+  border-radius: 12px 12px 0 0;
 }
 
 .doctor-profile:hover img {
@@ -327,11 +326,8 @@
 }
 
 .doctor-info {
-  padding: 0.5rem 0.5rem;
+  padding: 0.75rem 0.5rem;
   text-align: center;
-  margin-top: 0;
-  position: relative;
-  background-color: white;
 }
 
 .doctor-info h4 {
@@ -400,71 +396,29 @@
   padding-bottom: 0;
 }
 
-.specialites-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-/* Doctor grid adjustments for side-by-side layout */
-.doctors-showcase {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  height: auto;
-}
-
-.doctors-showcase h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--grey-900);
-  margin-bottom: 2rem;
-  text-align: center;
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
+/* Doctor grid for exactly 3 doctors */
 .doctors-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   justify-content: center;
+  margin-top: 1rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.doctor-profile {
-  background-color: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  border: 1px solid #f0f0f0;
-  height: 100%;
+/* Responsive adjustment for smaller screens */
+@media (max-width: 992px) {
+  .doctors-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
 }
 
-.doctor-profile img {
-  width: 100%;
-  height: 440px; /* Doubled from 220px to make images twice as large */
-  object-fit: cover;
-}
-
-.doctor-info {
-  padding: 0.75rem 0.5rem; /* Reduced padding to accommodate larger images */
-  text-align: center;
-}
-
-.doctor-info h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--grey-900);
-}
-
-.doctor-info p {
-  font-size: 1rem;
-  color: var(--grey-600);
+@media (max-width: 576px) {
+  .doctors-grid {
+    grid-template-columns: 1fr; /* 1 column on very small screens */
+  }
 }
 
 @media (max-width: 767px) {
@@ -482,8 +436,30 @@
   .doctors-showcase {
     padding: 1.5rem;
   }
-  
+
   .dashboard-row {
     gap: 2rem;
   }
+}
+
+/* Enhanced styling for specialties list */
+.specialites-list li {
+  background-color: rgba(59, 130, 246, 0.1);
+  color: var(--primary);
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.2rem; /* Increased font size for better visibility */
+  font-weight: 500;
+  list-style: none;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-width: 150px; /* Ensure minimum width for each specialty item */
+}
+
+.specialites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-top: 1rem;
 }

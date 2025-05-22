@@ -99,22 +99,26 @@ const HospitalStats = () => {
           <div className="dashboard-section doctors-showcase">
             <h3>Notre équipe médicale</h3>
             <div className="doctors-grid">
-              {doctors.map((doctor) => (
-                <div className="doctor-profile" key={doctor.id_medecin}>
-                  <img 
-                    src={getDoctorImage(doctor.image)} 
-                    alt={`Dr. ${doctor.nom} ${doctor.prenom}`}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = '/doctors/default.jpg';
-                    }}
-                  />
-                  <div className="doctor-info">
-                    <h4>Dr. {doctor.nom} {doctor.prenom}</h4>
-                    <p>{doctor.specialite}</p>
+              {doctors
+                // Shuffle the array and take only the first 3 doctors
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 3)
+                .map((doctor) => (
+                  <div className="doctor-profile" key={doctor.id_medecin}>
+                    <img 
+                      src={getDoctorImage(doctor.image)} 
+                      alt={`Dr. ${doctor.nom} ${doctor.prenom}`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = '/doctors/default.jpg';
+                      }}
+                    />
+                    <div className="doctor-info">
+                      <h4>Dr. {doctor.nom} {doctor.prenom}</h4>
+                      <p>{doctor.specialite}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
