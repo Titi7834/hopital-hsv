@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Clock, MapPin, Phone, Calendar, Search, User, Menu, X, ChevronRight, ChevronDown, Heart, ArrowRight } from 'lucide-react';
 import './HomePage.css';
+import NavBar from '../NavBar';
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,28 +29,11 @@ export default function HomePage() {
             </button>
           </div>
           {/* Desktop Navigation */}
-          <div className="desktopMenu">
-            <a href="#" className="navLink activeLink">Accueil</a>
-            <a href="#" className="navLink normalLink">Médecins</a>
-            <a href="#" className="navLink normalLink">Patients</a>
-          </div>
-          <div className="flexStart desktopMenu">
-          </div>
+          <NavBar />
           <div className="flexStart desktopMenu">
             <button className="appointmentButton" onClick={handleClick}>Prendre RDV</button>
           </div>
         </div>
-        {/* Mobile Navigation */}
-        {menuOpen && (
-          <div className="mobileMenu">
-            <a href="#" className="navLink activeLink">Accueil</a>
-            <a href="#" className="navLink normalLink">Médecins</a>
-            <a href="#" className="navLink normalLink">Patients</a>
-            <a href="#" className="navLink normalLink">À propos</a>
-            <a href="#" className="navLink normalLink">Contact</a>
-            <button className="appointmentButton">Prendre RDV</button>
-          </div>
-        )}
       </nav>
 
       {/* Hero Section */}
@@ -60,16 +44,6 @@ export default function HomePage() {
             <p className="heroDescription">
               L'Hôpital HSV est dédié à fournir des soins de santé exceptionnels avec compassion et expertise. Notre équipe de professionnels qualifiés est là pour vous accompagner.
             </p>
-            <div className="heroButtons">
-              <button className="primaryButton">
-                <Calendar className="mr-2" size={18} />
-                Prendre rendez-vous
-              </button>
-              <button className="secondaryButton">
-                <Phone className="mr-2" size={18} />
-                Nous contacter
-              </button>
-            </div>
           </div>
           <div className="heroImage">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2617.4582864243516!2d2.268027676171527!3d49.00186559059939!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e667ea03fff2e5%3A0x1178243bf7fa1007!2sH%C3%B4pital%20Simone%20Veil!5e0!3m2!1sfr!2sfr!4v1747822703382!5m2!1sfr!2sfr" width="648" height="300" allowFullScreen={true}></iframe>
@@ -131,17 +105,6 @@ export default function HomePage() {
           <div>
             <div className="footerLogo">Hôpital HSV</div>
             <div className="footerDescription">Votre santé, notre priorité depuis plus de 30 ans.</div>
-            <div className="socialLinks">
-              <a className="socialIcon" style={{ backgroundColor: '#1a56db' }}>
-                <span className="sr-only">Bleu</span>
-              </a>
-              <a className="socialIcon" style={{ backgroundColor: '#60a5fa' }}>
-                <span className="sr-only">Bleu Clair</span>
-              </a>
-              <a className="socialIcon" style={{ backgroundColor: '#ef4444' }}>
-                <span className="sr-only">Rouge</span>
-              </a>
-            </div>
           </div>
           <div>
             <div className="columnTitle">Nos services</div>
@@ -149,6 +112,7 @@ export default function HomePage() {
               <li className="footerListItem"><a className="footerLink">Cardiologie</a></li>
               <li className="footerListItem"><a className="footerLink">Neurologie</a></li>
               <li className="footerListItem"><a className="footerLink">Pédiatrie</a></li>
+              <li className="footerListItem"><a className="footerLink">Urgences</a></li>
             </ul>
           </div>
           <div>
