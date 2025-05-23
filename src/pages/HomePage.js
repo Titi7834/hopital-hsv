@@ -30,9 +30,6 @@ export default function HomePage() {
           </div>
           {/* Desktop Navigation */}
           <NavBar />
-          <div className="flexStart desktopMenu">
-            <button className="appointmentButton" onClick={handleClick}>Prendre RDV</button>
-          </div>
         </div>
       </nav>
 
